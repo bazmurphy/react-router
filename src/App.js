@@ -17,6 +17,7 @@ import About from "./pages/About";
 import Faq from "./pages/help/Faq";
 import Contact from "./pages/help/Contact";
 import Careers, { careersLoader } from "./pages/careers/Careers";
+import CareerError from "./pages/careers/CareerError";
 import CareerDetails, {
   careerDetailsLoader,
 } from "./pages/careers/CareerDetails";
@@ -55,14 +56,27 @@ const router = createBrowserRouter(
         <Route path="contact" element={<Contact />} />
       </Route>
 
-      <Route path="careers" element={<CareersLayout />}>
+      {/* [2] BUT IF YOU USE BUBBLING UP... the element (in this case LAYOUT) is SWAPPED with the errorElement so you lose the Layout */}
+      <Route
+        path="careers"
+        element={<CareersLayout />}
+        errorElement={<CareerError />}
+      >
         {/* it runs the "careersLoader" function "ahead of time" and fetches the data and returns the json data as a Promise to the Careers component */}
-        <Route index element={<Careers />} loader={careersLoader} />
-        {/* using route parameters */}
+        <Route
+          index
+          element={<Careers />}
+          loader={careersLoader}
+          // [1] if there is NO errorElement DIRECTLY associated to the Route it will BUBBLE UP to the PARENT
+          // errorElement={<CareerError />}
+        />
+        {/* using Route Parameters */}
         <Route
           path=":id"
           element={<CareerDetails />}
           loader={careerDetailsLoader}
+          // [1] if there is NO errorElement DIRECTLY associated to the Route it will BUBBLE UP to the PARENT
+          // errorElement={<CareerError />}
         />
       </Route>
 

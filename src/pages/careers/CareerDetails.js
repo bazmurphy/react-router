@@ -4,6 +4,7 @@ const CareerDetails = () => {
   // we can access the route parameter using a special hook from React Router "useParams"
   // the key needs to match whatever name you gave it in the <Route path=":xxxx" />
   const { id } = useParams();
+  console.log(id);
 
   // we get the careerDetailsLoader function return Promise and resolve it
   const career = useLoaderData();
@@ -30,5 +31,11 @@ export const careerDetailsLoader = async ({ params }) => {
   // and as above it must match the name provided in the <Route path=":xxxx" />
   const { id } = params;
   const response = await fetch(`http://localhost:4000/careers/${id}`);
+
+  // for error handling if that career id does not exist:
+  if (!response.ok) {
+    throw Error("Could not that find that career");
+  }
+
   return response.json();
 };

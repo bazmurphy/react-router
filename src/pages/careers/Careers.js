@@ -36,8 +36,13 @@ export default Careers;
 // we need to export this function so we can import it in App, so that we can associate it with a Route
 
 export const careersLoader = async () => {
-  const response = await fetch("http://localhost:4000/careers");
+  const response = await fetch("http://localhost:4000/careerss");
   // this is a Promise, but that doesn't matter, React Router is going to resolve that Promise
   // and get the data for us which we can then access later using the useLoaderData Hook inside the Component
+
+  // we add error handling
+  if (!response.ok) {
+    throw Error("Could not fetch the careers");
+  }
   return response.json();
 };
