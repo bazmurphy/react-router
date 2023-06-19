@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Faq from "./pages/help/Faq";
 import Contact from "./pages/help/Contact";
+import NotFound from "./pages/NotFound";
 
 // we create a new Browser Router
 // and inside of that function we call another function createRoutesFromElements
@@ -27,7 +28,10 @@ import Contact from "./pages/help/Contact";
 // so we can put a Navigation in there for example, where we have Links/Nav Links
 // and Link/NavLink will work because they are INSIDE THE SCOPE of the BrowserRouter
 
-// we can create depeper Nested Routes
+// we can create deeper Nested Routes, see the help/faq, help/contact examples
+
+// for handling route requests that do not exist, one way is to create a catchall at the end of the Route Tree
+// where the path is a catch all "*" with a NotFound component
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +42,7 @@ const router = createBrowserRouter(
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
