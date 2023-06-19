@@ -15,7 +15,7 @@ import CareersLayout from "./layouts/CareersLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Faq from "./pages/help/Faq";
-import Contact from "./pages/help/Contact";
+import Contact, { contactAction } from "./pages/help/Contact";
 import Careers, { careersLoader } from "./pages/careers/Careers";
 import CareerError from "./pages/careers/CareerError";
 import CareerDetails, {
@@ -53,7 +53,8 @@ const router = createBrowserRouter(
 
       <Route path="help" element={<HelpLayout />}>
         <Route path="faq" element={<Faq />} />
-        <Route path="contact" element={<Contact />} />
+        {/* we add an action to the Contact Route to allow handling of the Form Submission */}
+        <Route path="contact" element={<Contact />} action={contactAction} />
       </Route>
 
       {/* [2] BUT IF YOU USE BUBBLING UP... the element (in this case LAYOUT) is SWAPPED with the errorElement so you lose the Layout */}
