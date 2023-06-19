@@ -17,6 +17,9 @@ import About from "./pages/About";
 import Faq from "./pages/help/Faq";
 import Contact from "./pages/help/Contact";
 import Careers, { careersLoader } from "./pages/careers/Careers";
+import CareerDetails, {
+  careerDetailsLoader,
+} from "./pages/careers/CareerDetails";
 import NotFound from "./pages/NotFound";
 
 // we create a new Browser Router
@@ -55,6 +58,12 @@ const router = createBrowserRouter(
       <Route path="careers" element={<CareersLayout />}>
         {/* it runs the "careersLoader" function "ahead of time" and fetches the data and returns the json data as a Promise to the Careers component */}
         <Route index element={<Careers />} loader={careersLoader} />
+        {/* using route parameters */}
+        <Route
+          path=":id"
+          element={<CareerDetails />}
+          loader={careerDetailsLoader}
+        />
       </Route>
 
       <Route path="*" element={<NotFound />} />
