@@ -9,12 +9,14 @@ import {
 // layouts
 import RootLayout from "./layouts/RootLayout";
 import HelpLayout from "./layouts/HelpLayout";
+import CareersLayout from "./layouts/CareersLayout";
 
 // pages
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Faq from "./pages/help/Faq";
 import Contact from "./pages/help/Contact";
+import Careers, { careersLoader } from "./pages/careers/Careers";
 import NotFound from "./pages/NotFound";
 
 // we create a new Browser Router
@@ -33,15 +35,28 @@ import NotFound from "./pages/NotFound";
 // for handling route requests that do not exist, one way is to create a catchall at the end of the Route Tree
 // where the path is a catch all "*" with a NotFound component
 
+// Loaders are a way that we can load data into a Component before it renders
+// We might have a products page component that lists a lot of products that come from an API
+// And a Loader would allow us to fetch those products from the API BEFORE THE COMPONENT RENDERS IN THE BROWSER
+// And inside that Component we then don't need to worry about using a useEffect hook to fetch the data when the Component renders
+// Because the Loader function does that all for us AHEAD of time.
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
+
       <Route path="help" element={<HelpLayout />}>
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
       </Route>
+
+      <Route path="careers" element={<CareersLayout />}>
+        {/* it runs the "careersLoader" function "ahead of time" and fetches the data and returns the json data as a Promise to the Careers component */}
+        <Route index element={<Careers />} loader={careersLoader} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Route>
   )
