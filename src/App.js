@@ -45,6 +45,11 @@ import NotFound from "./pages/NotFound";
 // And inside that Component we then don't need to worry about using a useEffect hook to fetch the data when the Component renders
 // Because the Loader function does that all for us AHEAD of time.
 
+// We can use the Navigate Component to redirect Users based on certain conditions
+// If we wanted to redirect someone not logged in, we could do a quick authentication check using some Global State,
+// and if that was null, meaning the user was not logged in,
+// then we could return a Navigate Component to redirect a user away from any given page
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
