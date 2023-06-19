@@ -8,10 +8,13 @@ import {
 
 // layouts
 import RootLayout from "./layouts/RootLayout";
+import HelpLayout from "./layouts/HelpLayout";
 
 // pages
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Faq from "./pages/help/Faq";
+import Contact from "./pages/help/Contact";
 
 // we create a new Browser Router
 // and inside of that function we call another function createRoutesFromElements
@@ -22,13 +25,19 @@ import About from "./pages/About";
 // and that Element Component will act as kind of Layout Component for any elements (in this case <Route path="/" /> etc) NESTED inside of it.
 // that Element Component will WRAP the rest of the Page Components
 // so we can put a Navigation in there for example, where we have Links/Nav Links
-// and LInk/Nav Links will work because they are INSIDE THE SCOPE of the BrowserRouter
+// and Link/NavLink will work because they are INSIDE THE SCOPE of the BrowserRouter
+
+// we can create depeper Nested Routes
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      <Route path="/" index element={<Home />} />
-      <Route path="/about" element={<About />} />
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="help" element={<HelpLayout />}>
+        <Route path="faq" element={<Faq />} />
+        <Route path="contact" element={<Contact />} />
+      </Route>
     </Route>
   )
 );

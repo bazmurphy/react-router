@@ -10,10 +10,11 @@ const RootLayout = () => {
   return (
     <div className="root-layout">
       <header>
-        <h1>Job Router</h1>
+        <h1>React Router</h1>
         <nav>
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="about">About</NavLink>
+          <NavLink to="help">Help</NavLink>
         </nav>
       </header>
 
